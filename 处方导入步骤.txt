@@ -1,0 +1,15 @@
+1、
+将EXCEL导入表
+2、
+INSERT into temp_dir (id,name) SELECT 模板分组编码（值不含HH）,协方名称 FROM `处方模板` GROUP BY 模板分组编码（值不含HH）,协方名称; 
+3、
+UPDATE temp_dir SET upid=substring(id,1,LENGTH(id)-3);
+4、
+UPDATE temp_dir SET upid=NULL WHERE upid='HH';
+5、
+SELECT CONCAT('''',id,'''',',') from temp_dir;-- 复制这个结果字符串
+6、
+update temp_dir set upid=null WHERE upid is not null and upid not in 
+(
+-- 上面语句的结果集
+）;
