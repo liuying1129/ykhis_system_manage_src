@@ -1,8 +1,8 @@
 object frmDrugManage: TfrmDrugManage
-  Left = 181
-  Top = 126
+  Left = 176
+  Top = 114
   Width = 954
-  Height = 554
+  Height = 571
   Caption = #33647#21697#31649#29702
   Color = clSkyBlue
   Font.Charset = ANSI_CHARSET
@@ -23,55 +23,87 @@ object frmDrugManage: TfrmDrugManage
     Left = 0
     Top = 0
     Width = 193
-    Height = 515
+    Height = 532
     Align = alLeft
     Color = clSkyBlue
     TabOrder = 0
-    object Label1: TLabel
-      Left = 10
-      Top = 34
-      Width = 52
-      Height = 13
-      Caption = #20195#30721#31867#22411
-    end
     object Label4: TLabel
-      Left = 10
-      Top = 326
+      Left = 27
+      Top = 286
       Width = 52
       Height = 13
       Caption = #40664#35748#29992#27861
     end
     object Label5: TLabel
-      Left = 10
-      Top = 376
+      Left = 27
+      Top = 336
       Width = 52
       Height = 13
       Caption = #40664#35748#39057#27425
     end
     object Label8: TLabel
-      Left = 10
-      Top = 351
+      Left = 27
+      Top = 311
       Width = 52
       Height = 13
       Caption = #40664#35748#29006#27861
     end
     object Label9: TLabel
-      Left = 137
-      Top = 281
+      Left = 154
+      Top = 241
       Width = 52
       Height = 13
       Caption = #21547#37327#21333#20301
     end
     object Label10: TLabel
-      Left = 137
-      Top = 303
+      Left = 154
+      Top = 263
       Width = 52
       Height = 13
       Caption = #29992#37327#21333#20301
     end
+    object Label11: TLabel
+      Left = 3
+      Top = 479
+      Width = 163
+      Height = 13
+      Caption = '1'#12289#26368#23567#21547#37327#21450#26368#23567#21547#37327#21333#20301
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label12: TLabel
+      Left = 23
+      Top = 495
+      Width = 91
+      Height = 13
+      Caption = #20165#29992#20110#22788#26041#26174#31034
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label13: TLabel
+      Left = 4
+      Top = 511
+      Width = 190
+      Height = 13
+      Caption = '2'#12289#29992#37327'/'#39057#27425'/'#22825#25968#29992#20110#35745#31639#25968#37327
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = #23435#20307
+      Font.Style = []
+      ParentFont = False
+    end
     object LabeledEdit2: TLabeledEdit
-      Left = 66
-      Top = 102
+      Left = 83
+      Top = 62
       Width = 100
       Height = 19
       Color = 16767438
@@ -81,38 +113,38 @@ object frmDrugManage: TfrmDrugManage
       EditLabel.Caption = #36890#29992#21517
       LabelPosition = lpLeft
       ParentCtl3D = False
-      TabOrder = 2
+      TabOrder = 1
     end
     object BitBtn1: TBitBtn
-      Left = 65
-      Top = 53
+      Left = 82
+      Top = 13
       Width = 100
       Height = 25
       Caption = #26032#22686
-      TabOrder = 18
+      TabOrder = 17
       OnClick = BitBtn1Click
     end
     object BitBtn2: TBitBtn
-      Left = 65
-      Top = 464
+      Left = 82
+      Top = 424
       Width = 100
       Height = 25
       Caption = #20445#23384
-      TabOrder = 17
+      TabOrder = 16
       OnClick = BitBtn2Click
     end
     object BitBtn3: TBitBtn
-      Left = 65
-      Top = 489
+      Left = 82
+      Top = 449
       Width = 50
       Height = 25
       Caption = #21024#38500
-      TabOrder = 19
+      TabOrder = 18
       OnClick = BitBtn3Click
     end
     object LabeledEdit1: TLabeledEdit
-      Left = 66
-      Top = 80
+      Left = 83
+      Top = 40
       Width = 100
       Height = 19
       Color = 16767438
@@ -122,11 +154,11 @@ object frmDrugManage: TfrmDrugManage
       EditLabel.Caption = #20195#30721
       LabelPosition = lpLeft
       ParentCtl3D = False
-      TabOrder = 1
+      TabOrder = 0
     end
     object LabeledEdit3: TLabeledEdit
-      Left = 65
-      Top = 442
+      Left = 82
+      Top = 402
       Width = 100
       Height = 19
       Color = 16767438
@@ -136,31 +168,20 @@ object frmDrugManage: TfrmDrugManage
       EditLabel.Caption = #22791#27880
       LabelPosition = lpLeft
       ParentCtl3D = False
-      TabOrder = 16
-    end
-    object ComboBox1: TComboBox
-      Left = 64
-      Top = 30
-      Width = 100
-      Height = 21
-      Style = csDropDownList
-      DropDownCount = 20
-      ItemHeight = 13
-      TabOrder = 0
-      OnChange = ComboBox1Change
+      TabOrder = 15
     end
     object BitBtn4: TBitBtn
-      Left = 115
-      Top = 489
+      Left = 132
+      Top = 449
       Width = 50
       Height = 25
       Caption = #23548#20986
-      TabOrder = 20
+      TabOrder = 19
       OnClick = BitBtn4Click
     end
     object LabeledEdit4: TLabeledEdit
-      Left = 66
-      Top = 146
+      Left = 83
+      Top = 106
       Width = 100
       Height = 19
       Color = 16767438
@@ -170,11 +191,11 @@ object frmDrugManage: TfrmDrugManage
       EditLabel.Caption = #25289#19969#21517
       LabelPosition = lpLeft
       ParentCtl3D = False
-      TabOrder = 4
+      TabOrder = 3
     end
     object LabeledEdit5: TLabeledEdit
-      Left = 66
-      Top = 168
+      Left = 83
+      Top = 128
       Width = 100
       Height = 19
       Color = 16767438
@@ -184,20 +205,11 @@ object frmDrugManage: TfrmDrugManage
       EditLabel.Caption = #33521#25991#21517
       LabelPosition = lpLeft
       ParentCtl3D = False
-      TabOrder = 5
-    end
-    object BitBtn5: TBitBtn
-      Left = 65
-      Top = 4
-      Width = 100
-      Height = 25
-      Caption = #22686#21152#20195#30721#31867#22411
-      TabOrder = 21
-      OnClick = BitBtn5Click
+      TabOrder = 4
     end
     object LabeledEdit14: TLabeledEdit
-      Left = 66
-      Top = 124
+      Left = 83
+      Top = 84
       Width = 100
       Height = 19
       Color = 16767438
@@ -207,11 +219,11 @@ object frmDrugManage: TfrmDrugManage
       EditLabel.Caption = #21270#23398#21517
       LabelPosition = lpLeft
       ParentCtl3D = False
-      TabOrder = 3
+      TabOrder = 2
     end
     object LabeledEdit15: TLabeledEdit
-      Left = 66
-      Top = 212
+      Left = 83
+      Top = 172
       Width = 100
       Height = 19
       Color = 16767438
@@ -221,11 +233,11 @@ object frmDrugManage: TfrmDrugManage
       EditLabel.Caption = #35268#26684
       LabelPosition = lpLeft
       ParentCtl3D = False
-      TabOrder = 7
+      TabOrder = 6
     end
     object LabeledEdit16: TLabeledEdit
-      Left = 66
-      Top = 300
+      Left = 83
+      Top = 260
       Width = 70
       Height = 19
       Color = 16767438
@@ -235,11 +247,11 @@ object frmDrugManage: TfrmDrugManage
       EditLabel.Caption = #40664#35748#29992#37327
       LabelPosition = lpLeft
       ParentCtl3D = False
-      TabOrder = 11
+      TabOrder = 10
     end
     object LabeledEdit23: TLabeledEdit
-      Left = 65
-      Top = 398
+      Left = 82
+      Top = 358
       Width = 100
       Height = 19
       Color = 16767438
@@ -249,28 +261,30 @@ object frmDrugManage: TfrmDrugManage
       EditLabel.Caption = #40664#35748#22825#25968
       LabelPosition = lpLeft
       ParentCtl3D = False
-      TabOrder = 15
+      TabOrder = 14
     end
     object ComboBox4: TComboBox
-      Left = 65
-      Top = 322
+      Left = 82
+      Top = 282
       Width = 100
       Height = 21
+      DropDownCount = 20
       ItemHeight = 13
-      TabOrder = 12
+      TabOrder = 11
       OnKeyDown = ComboBox4KeyDown
     end
     object ComboBox5: TComboBox
-      Left = 65
-      Top = 372
+      Left = 82
+      Top = 332
       Width = 100
       Height = 21
+      DropDownCount = 20
       ItemHeight = 13
-      TabOrder = 14
+      TabOrder = 13
     end
     object LabeledEdit22: TLabeledEdit
-      Left = 67
-      Top = 190
+      Left = 84
+      Top = 150
       Width = 100
       Height = 19
       Color = 16767438
@@ -280,11 +294,11 @@ object frmDrugManage: TfrmDrugManage
       EditLabel.Caption = #22411#21495
       LabelPosition = lpLeft
       ParentCtl3D = False
-      TabOrder = 6
+      TabOrder = 5
     end
     object LabeledEdit24: TLabeledEdit
-      Left = 66
-      Top = 234
+      Left = 83
+      Top = 194
       Width = 100
       Height = 19
       Color = 16767438
@@ -294,11 +308,11 @@ object frmDrugManage: TfrmDrugManage
       EditLabel.Caption = #29983#20135#21378#23478
       LabelPosition = lpLeft
       ParentCtl3D = False
-      TabOrder = 8
+      TabOrder = 7
     end
     object LabeledEdit25: TLabeledEdit
-      Left = 66
-      Top = 256
+      Left = 83
+      Top = 216
       Width = 100
       Height = 19
       Color = 16767438
@@ -308,20 +322,21 @@ object frmDrugManage: TfrmDrugManage
       EditLabel.Caption = #25209#20934#25991#21495
       LabelPosition = lpLeft
       ParentCtl3D = False
-      TabOrder = 9
+      TabOrder = 8
     end
     object ComboBox6: TComboBox
-      Left = 65
-      Top = 347
+      Left = 82
+      Top = 307
       Width = 100
       Height = 21
+      DropDownCount = 20
       ItemHeight = 13
-      TabOrder = 13
+      TabOrder = 12
       OnKeyDown = ComboBox6KeyDown
     end
     object LabeledEdit10: TLabeledEdit
-      Left = 66
-      Top = 278
+      Left = 83
+      Top = 238
       Width = 70
       Height = 19
       Color = 16767438
@@ -331,37 +346,40 @@ object frmDrugManage: TfrmDrugManage
       EditLabel.Caption = #26368#23567#21547#37327
       LabelPosition = lpLeft
       ParentCtl3D = False
-      TabOrder = 10
+      TabOrder = 9
     end
     object LabeledEdit6: TLabeledEdit
-      Left = 65
-      Top = 420
+      Left = 82
+      Top = 380
       Width = 100
       Height = 19
+      Hint = #21363','#25968#37327#30340#40664#35748#21333#20301
       Color = clMenu
       Ctl3D = False
-      EditLabel.Width = 52
+      EditLabel.Width = 78
       EditLabel.Height = 13
-      EditLabel.Caption = #25910#36153#21333#20301
+      EditLabel.Caption = #40664#35748#25910#36153#21333#20301
       Enabled = False
       LabelPosition = lpLeft
       ParentCtl3D = False
+      ParentShowHint = False
       ReadOnly = True
-      TabOrder = 22
+      ShowHint = True
+      TabOrder = 20
     end
   end
   object Panel4: TPanel
     Left = 193
     Top = 0
     Width = 745
-    Height = 515
+    Height = 532
     Align = alClient
     TabOrder = 1
     object DBGrid1: TDBGrid
       Left = 1
       Top = 42
       Width = 743
-      Height = 337
+      Height = 354
       Align = alClient
       Color = 16767438
       DataSource = DataSource1
@@ -375,7 +393,7 @@ object frmDrugManage: TfrmDrugManage
     end
     object Panel2: TPanel
       Left = 1
-      Top = 379
+      Top = 396
       Width = 743
       Height = 135
       Align = alBottom
@@ -529,8 +547,48 @@ object frmDrugManage: TfrmDrugManage
       Height = 41
       Align = alTop
       TabOrder = 2
+      object Label1: TLabel
+        Left = 10
+        Top = 18
+        Width = 52
+        Height = 13
+        Caption = #33647#21697#31867#22411
+      end
+      object SpeedButton1: TSpeedButton
+        Left = 164
+        Top = 12
+        Width = 23
+        Height = 22
+        Hint = #22686#21152#33647#21697#31867#22411
+        Glyph.Data = {
+          9E020000424D9E0200000000000036000000280000000E0000000E0000000100
+          18000000000068020000130B0000130B00000000000000000000FFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFB1CBE485B6CF84BAD1B6CCD5FFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFDF82494FA009EFF00B2FF40B2
+          E8FFFFF6FFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          F83A90F6008BFF009AFD52B0E7FFFFF7FFFFFFFFFFFFFFFFFFFFFFFF0000FFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFC3B81EF0079F70086FE4FA5E8FFFFFAFFFFFFFF
+          FFFFFFFFFFFFFFFF0000FFFFFCFFFFF3FFFFF4FFFFF6FFFFF44879E80067EF00
+          74F95DA2E6FFFFEFFFFFF5FFFFF4FFFFF2FFFFFD0000A8C8EB5691DD6A9CDF52
+          8ADB5387D7125BE1005BE5006AEE1D7EE95D9AE04D99E34EA1E3399CE2BACBDA
+          000075ADF2308CFD3D90F63186F41871EF1065E9085AE4005BE3005FEA0066F1
+          0074F90082FD0084FF92B7DA000080B6F24CA0FF529FF84999F84593F54590F4
+          3B85EE2977EA1C6DE70764E6036CEB0078F2006BFF90B0DC00009DC6EF65ADF6
+          6EACF663A8F564A6F54F97F44793F2418BF14187EB4C87EA3D7FE73C84E92273
+          EFB5CAEA0000FFFFFAFBF8F7FFFCF9FFFEF9FFFEF468AAF24A98F83B8EF577A6
+          E2FFFFF6FFFFFBFFFFFAFFFFF7FFFFFD0000FFFFFFFFFFFFFFFFFFFFFFFFFFFD
+          F96FAFF659A3FC4A98F974A5E3FFFFF9FFFFFFFFFFFFFFFFFFFFFFFF0000FFFF
+          FFFFFFFFFFFFFFFFFFFFFBFAF97BB7F66BB0FD5DA6FC7EACE5FFFFF7FFFFFFFF
+          FFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFF5F6F87CBDF672BBFF5E
+          ADFF75A9E4FFFFF8FFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFF
+          FFFFFFFEFCA9CEEF94C5F18CC0F1B6D1EEFFFFFDFFFFFFFFFFFFFFFFFFFFFFFF
+          0000}
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = BitBtn5Click
+      end
       object LabeledEdit7: TLabeledEdit
-        Left = 74
+        Left = 245
         Top = 14
         Width = 100
         Height = 19
@@ -544,13 +602,24 @@ object frmDrugManage: TfrmDrugManage
         TabOrder = 0
       end
       object BitBtn10: TBitBtn
-        Left = 200
+        Left = 371
         Top = 10
         Width = 75
         Height = 25
         Caption = #31579#36873
         TabOrder = 1
         OnClick = BitBtn10Click
+      end
+      object ComboBox1: TComboBox
+        Left = 64
+        Top = 14
+        Width = 100
+        Height = 21
+        Style = csDropDownList
+        DropDownCount = 20
+        ItemHeight = 13
+        TabOrder = 2
+        OnChange = ComboBox1Change
       end
     end
   end

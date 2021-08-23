@@ -19,12 +19,9 @@ type
     BitBtn3: TBitBtn;
     LabeledEdit1: TLabeledEdit;
     LabeledEdit3: TLabeledEdit;
-    ComboBox1: TComboBox;
-    Label1: TLabel;
     BitBtn4: TBitBtn;
     LabeledEdit4: TLabeledEdit;
     LabeledEdit5: TLabeledEdit;
-    BitBtn5: TBitBtn;
     ADOQuery1: TMyQuery;
     LabeledEdit14: TLabeledEdit;
     LabeledEdit15: TLabeledEdit;
@@ -67,6 +64,12 @@ type
     Panel5: TPanel;
     LabeledEdit7: TLabeledEdit;
     BitBtn10: TBitBtn;
+    Label1: TLabel;
+    ComboBox1: TComboBox;
+    SpeedButton1: TSpeedButton;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
