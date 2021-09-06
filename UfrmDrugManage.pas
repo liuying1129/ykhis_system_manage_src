@@ -340,7 +340,7 @@ procedure TfrmDrugManage.updateAdoQuery1(const AType:integer;const Agene_name:st
 var
   ss:string;
 begin
-  if(AType=1)and(trim(Agene_name)<>'') then ss:=' and gene_name like ''%'+Agene_name+'%'' ';
+  if(AType=1)and(trim(Agene_name)<>'') then ss:=' and (gene_name like ''%'+Agene_name+'%'' or gene_pinyin like ''%'+Agene_name+'%'' or gene_wbm like ''%'+Agene_name+'%'') ';
   adoquery1.Close;
   adoquery1.SQL.Clear;
   adoquery1.SQL.Text:='select code as ДњТы,'+

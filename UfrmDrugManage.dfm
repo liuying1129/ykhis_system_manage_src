@@ -600,21 +600,21 @@ object frmDrugManage: TfrmDrugManage
         OnClick = BitBtn5Click
       end
       object LabeledEdit7: TLabeledEdit
-        Left = 245
+        Left = 345
         Top = 14
         Width = 100
         Height = 19
         Color = 16767438
         Ctl3D = False
-        EditLabel.Width = 39
+        EditLabel.Width = 131
         EditLabel.Height = 13
-        EditLabel.Caption = #36890#29992#21517
+        EditLabel.Caption = #36890#29992#21517'/'#25340#38899#30721'/'#20116#31508#30721
         LabelPosition = lpLeft
         ParentCtl3D = False
         TabOrder = 0
       end
       object BitBtn10: TBitBtn
-        Left = 371
+        Left = 471
         Top = 10
         Width = 75
         Height = 25
