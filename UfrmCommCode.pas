@@ -35,8 +35,8 @@ type
     DateTimePicker2: TDateTimePicker;
     LabeledEdit12: TLabeledEdit;
     LabeledEdit13: TLabeledEdit;
-    BitBtn5: TBitBtn;
     ADOQuery1: TMyQuery;
+    SpeedButton1: TSpeedButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -49,7 +49,7 @@ type
     procedure BitBtn4Click(Sender: TObject);
     procedure DateTimePicker1Change(Sender: TObject);
     procedure DateTimePicker2Change(Sender: TObject);
-    procedure BitBtn5Click(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
     procedure ClearEdit;
@@ -330,7 +330,7 @@ begin
   LabeledEdit13.Text:=datetostr((sender as TDateTimePicker).date);
 end;
 
-procedure TfrmCommCode.BitBtn5Click(Sender: TObject);
+procedure TfrmCommCode.SpeedButton1Click(Sender: TObject);
 var
   sTypeName:string;
   iNum:integer;
