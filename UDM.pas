@@ -48,8 +48,8 @@ var
 
 procedure WriteLog(const ALogStr: Pchar);stdcall;external 'LYFunction.dll';
 function GetHDSn(const RootPath:pchar):pchar;stdcall;external 'LYFunction.dll';
-function DeCryptStr(aStr: Pchar; aKey: Pchar): Pchar;stdcall;external 'DESCrypt.dll';//解密
-function EnCryptStr(aStr: Pchar; aKey: Pchar): Pchar;stdcall;external 'DESCrypt.dll';//加密
+function DeCryptStr(aStr: Pchar; aKey: Pchar): Pchar;stdcall;external 'LYFunction.dll';//解密
+function EnCryptStr(aStr: Pchar; aKey: Pchar): Pchar;stdcall;external 'LYFunction.dll';//加密
 function ShowOptionForm(const pCaption,pTabSheetCaption,pItemInfo,pInifile:Pchar):boolean;stdcall;external 'OptionSetForm.dll';
   
 function MakeDBConn:boolean;
