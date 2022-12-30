@@ -144,7 +144,7 @@ begin
 
   Conn:=TMyConnection.Create(nil);
   Conn.LoginPrompt:=false;
-  Conn.Options.Charset:='gb2312';
+  Conn.Options.Charset:='gbk';
   Conn.Server:=AServer;
   Conn.Port:=APort;
   Conn.Database:=ADataBase;
@@ -177,7 +177,7 @@ begin
   Result:='';
   Conn:=TMyConnection.Create(nil);
   Conn.LoginPrompt:=false;
-  Conn.Options.Charset:='gb2312';
+  Conn.Options.Charset:='gbk';
   Conn.Server:=AServer;
   Conn.Port:=APort;
   Conn.Database:=ADataBase;
