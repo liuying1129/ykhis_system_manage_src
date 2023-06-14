@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, Buttons, DB, DBTables, DBCtrls, Grids,
   DBGrids, ADODB, DosMove,inifiles, ActnList, jpeg, MemDS, DBAccess,
-  MyAccess;
+  Uni;
 
 type
   TfrmLogin = class(TForm)
@@ -22,7 +22,7 @@ type
     Image1: TImage;
     Label1: TLabel;
     Label2: TLabel;
-    ADOQuery1: TMyQuery;
+    ADOQuery1: TUniQuery;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -129,7 +129,7 @@ begin
     close;
     operator_name:=trim(labelededit5.Text);
     operator_id:=trim(labelededit4.Text);
-    operator_dep_name:=ScalarSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'SELECT cc.name FROM worker w,commcode cc where w.code='''+trim(labelededit4.Text)+''' AND cc.TypeName=''部门'' and cc.unid=w.dep_unid');
+    operator_dep_name:=ScalarSQLCmd(HisConn,'SELECT cc.name FROM worker w,commcode cc where w.code='''+trim(labelededit4.Text)+''' AND cc.TypeName=''部门'' and cc.unid=w.dep_unid');
     SendNotifyMessage(application.mainform.handle,WM_UPDATETEXTSTATUS,0,integer(pchar(#$2+'2:'+operator_id+#$2+'4:'+operator_name)));
   end;
 end;

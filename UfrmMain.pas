@@ -142,7 +142,7 @@ var
   i:integer;
 begin
   //读系统代码
-  SCSYDW:=ScalarSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'select Name from commcode where TypeName=''系统代码'' and ReMark=''授权使用单位'' ');
+  SCSYDW:=ScalarSQLCmd(HisConn,'select Name from commcode where TypeName=''系统代码'' and ReMark=''授权使用单位'' ');
   if SCSYDW='' then SCSYDW:='2F3A054F64394BBBE3D81033FDE12313';//'未授权单位'加密后的字符串
   //======解密SCSYDW
   pInStr:=pchar(SCSYDW);

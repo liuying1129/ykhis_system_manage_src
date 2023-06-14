@@ -311,7 +311,7 @@ object frmDgnsBigTemp: TfrmDgnsBigTemp
       ShortCut = 116
     end
   end
-  object ADOQuery1: TMyQuery
+  object ADOQuery1: TUniQuery
     AfterOpen = ADOQuery1AfterOpen
     AfterScroll = ADOQuery1AfterScroll
     Left = 240

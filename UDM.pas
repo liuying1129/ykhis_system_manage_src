@@ -3,8 +3,9 @@ unit UDM;
 interface
 
 uses
-  SysUtils, Classes, DB, DBAccess, MyAccess,IniFiles,Forms,Dialogs, Menus,
-  ComCtrls,StdCtrls,ExtCtrls,Buttons,Windows{TLastInputInfo};
+  SysUtils, Classes, DB, DBAccess, IniFiles,Forms,Dialogs, Menus,
+  ComCtrls,StdCtrls,ExtCtrls,Buttons,Windows{TLastInputInfo}, Uni,
+  UniProvider, MySQLUniProvider;
 
 type
   PDescriptType=^TDescriptType;
@@ -16,7 +17,7 @@ type
 
 type
   TDM = class(TDataModule)
-    MyConnection1: TMyConnection;
+    MyConnection1: TUniConnection;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -31,10 +32,8 @@ var
   DM: TDM;
 
   g_Server:string;//MySQL服务器
-  g_Port:integer;//MySQL端口号
   g_Database: string;//MySQL数据库
-  g_Username:string;//MySQL用户名
-  g_Password:string;//MySQL密码
+  HisConn:string;
 
   operator_name:string;
   operator_id:string;
@@ -53,8 +52,8 @@ function EnCryptStr(aStr: Pchar; aKey: Pchar): Pchar;stdcall;external 'LYFunctio
 function ShowOptionForm(const pCaption,pTabSheetCaption,pItemInfo,pInifile:Pchar):boolean;stdcall;external 'OptionSetForm.dll';
   
 function MakeDBConn:boolean;
-function ExecSQLCmd(AServer:string;APort:integer;ADataBase:string;AUserName:string;APassword:string;ASQL:string):boolean;
-function ScalarSQLCmd(AServer:string;APort:integer;ADataBase:string;AUserName:string;APassword:string;ASQL:string):string;
+function ExecSQLCmd(AHisConn:string;ASQL:string):boolean;
+function ScalarSQLCmd(AHisConn:string;ASQL:string):string;
 function ifhaspower(sender: tobject;const AUserCode:string): boolean;
 function StopTime: integer; //返回没有键盘和鼠标事件的时间
 procedure LoadGroupName(const comboBox:TcomboBox;const ASel:string);
@@ -77,9 +76,9 @@ end;
 
 function MakeDBConn:boolean;
 var
-  ss:string;
+  ss,newconnstr:string;
   Ini: tinifile;
-  userid, password, datasource, initialcatalog: string;
+  userid, password, datasource, initialcatalog,provider: string;
   port:integer;
 
   pInStr,pDeStr:Pchar;
@@ -90,6 +89,7 @@ begin
 
   labReadIni:
   Ini := tinifile.Create(ChangeFileExt(Application.ExeName,'.ini'));
+  provider := Ini.ReadString('连接数据库', '数据提供者', '');
   datasource := Ini.ReadString('连接数据库', '服务器', '');
   port := Ini.ReadInteger('连接数据库', '端口号', -1);
   initialcatalog := Ini.ReadString('连接数据库', '数据库', '');
@@ -103,29 +103,29 @@ begin
   for i :=1  to length(pDeStr) do password[i]:=pDeStr[i-1];
   //==========
 
+  //Provider Name为MySQL时,切记设置中文字符集(如Charset=GBK).否则:select中文别名报错;字段的中文值显示乱码
+  newconnstr :='';
+  newconnstr := newconnstr + 'Provider Name=' + provider + ';';
+  newconnstr := newconnstr + 'Login Prompt=False;Charset=GBK;';
+  newconnstr := newconnstr + 'Data Source=' + datasource + ';';
+  newconnstr := newconnstr + 'User ID=' + userid + ';';
+  newconnstr := newconnstr + 'Password=' + password + ';';
+  newconnstr := newconnstr + 'Database=' + initialcatalog + ';';
+  newconnstr := newconnstr + 'Port=' + inttostr(port) + ';';
   try
-    dm.MyConnection1.Connected := false;
-    dm.MyConnection1.LoginPrompt:=false;
-    //使用gb2312,插入【焗】时报错.改为gbk解决
-    dm.MyConnection1.Options.Charset:='gbk';
-    dm.MyConnection1.Server:=datasource;
-    dm.MyConnection1.Port:=port;
-    dm.MyConnection1.Database:=initialcatalog;
-    dm.MyConnection1.Username:=userid;
-    dm.MyConnection1.Password:=password;
-    dm.MyConnection1.Connected := true;
+    DM.MyConnection1.Connected := false;
+    DM.MyConnection1.ConnectString:=newconnstr;
+    DM.MyConnection1.Connect;
     result:=true;
-
-    g_Server:=datasource;//MySQL服务器
-    g_Port:=port;//MySQL端口号
-    g_Database:=initialcatalog;//MySQL数据库
-    g_Username:=userid;//MySQL用户名
-    g_Password:=password;//MySQL密码
+    HisConn:=newconnstr;
+    g_Server:=datasource;
+    g_Database:=initialcatalog;
   except
   end;
   if not result then
   begin
-    ss:='服务器'+#2+'Edit'+#2+#2+'0'+#2+#2+#3+
+    ss:='数据提供者'+#2+'Edit'+#2+#2+'0'+#2+#2+#3+
+        '服务器'+#2+'Edit'+#2+#2+'0'+#2+#2+#3+
         '端口号'+#2+'Edit'+#2+#2+'0'+#2+#2+#3+
         '数据库'+#2+'Edit'+#2+#2+'0'+#2+#2+#3+
         '用户'+#2+'Edit'+#2+#2+'0'+#2+#2+#3+
@@ -135,22 +135,17 @@ begin
   end;
 end;
 
-function ExecSQLCmd(AServer:string;APort:integer;ADataBase:string;AUserName:string;APassword:string;ASQL:string):boolean;
+function ExecSQLCmd(AHisConn:string;ASQL:string):boolean;
 var
-  Conn:TMyConnection;
-  Qry:TMyQuery;
+  Conn:TUniConnection;
+  Qry:TUniQuery;
 begin
   Result:=true;
 
-  Conn:=TMyConnection.Create(nil);
+  Conn:=TUniConnection.Create(nil);
   Conn.LoginPrompt:=false;
-  Conn.Options.Charset:='gbk';
-  Conn.Server:=AServer;
-  Conn.Port:=APort;
-  Conn.Database:=ADataBase;
-  Conn.Username:=AUserName;
-  Conn.Password:=APassword;
-  Qry:=TMyQuery.Create(nil);
+  Conn.ConnectString:=AHisConn;
+  Qry:=TUniQuery.Create(nil);
   Qry.Connection:=Conn;
   Qry.Close;
   Qry.SQL.Clear;
@@ -169,21 +164,16 @@ begin
   Conn.Free;
 end;
 
-function ScalarSQLCmd(AServer:string;APort:integer;ADataBase:string;AUserName:string;APassword:string;ASQL:string):string;
+function ScalarSQLCmd(AHisConn:string;ASQL:string):string;
 var
-  Conn:TMyConnection;
-  Qry:TMyQuery;
+  Conn:TUniConnection;
+  Qry:TUniQuery;
 begin
   Result:='';
-  Conn:=TMyConnection.Create(nil);
+  Conn:=TUniConnection.Create(nil);
   Conn.LoginPrompt:=false;
-  Conn.Options.Charset:='gbk';
-  Conn.Server:=AServer;
-  Conn.Port:=APort;
-  Conn.Database:=ADataBase;
-  Conn.Username:=AUserName;
-  Conn.Password:=APassword;
-  Qry:=TMyQuery.Create(nil);
+  Conn.ConnectString:=AHisConn;
+  Qry:=TUniQuery.Create(nil);
   Qry.Connection:=Conn;
   Qry.Close;
   Qry.SQL.Clear;
@@ -207,18 +197,18 @@ end;
 
 function haspower(AUserCode, menuname: string): boolean;
 var
-  ADOquery_menuitem:TMyQuery;
+  ADOquery_menuitem:TUniQuery;
 begin
   result:=false;
   //===============超级用户例外=================//
-  if strtoint(ScalarSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'select count(*) from worker where ifSuperUser=1 and code='''+operator_id+''' '))>0 then
+  if strtoint(ScalarSQLCmd(HisConn,'select count(*) from worker where ifSuperUser=1 and code='''+operator_id+''' '))>0 then
   begin
     result:=true;
     exit;
   end;
   //=======================================================//
 
-  ADOquery_menuitem:=TMyQuery.Create(nil);
+  ADOquery_menuitem:=TUniQuery.Create(nil);
   ADOquery_menuitem.Connection:=DM.MyConnection1;
   ADOquery_menuitem.SQL.Clear;
   ADOquery_menuitem.SQL.Text:='SELECT cc.name FROM worker w,worker_role wr,role_power rp,commcode cc where w.code='''+AUserCode+''' and w.unid=wr.worker_unid AND wr.role_unid=rp.role_unid and cc.typename=''受控功能'' AND cc.Reserve='''+SYSNAME+''' AND rp.power_unid=cc.unid';
@@ -299,10 +289,10 @@ end;
 
 procedure LoadGroupName(const comboBox:TcomboBox;const ASel:string);
 var
-  adotemp3:TMyQuery;
+  adotemp3:TUniQuery;
   tempstr:string;
 begin
-     adotemp3:=TMyQuery.Create(nil);
+     adotemp3:=TUniQuery.Create(nil);
      adotemp3.Connection:=DM.MyConnection1;
      adotemp3.Close;
      adotemp3.SQL.Clear;
@@ -325,10 +315,10 @@ end;
 function HasSubInDbf(Node:TTreeNode):Boolean;
 //检查节点Node有无子节点,有则返回True,反之返回False
 var
-  adotemp22:TMyQuery;
+  adotemp22:TUniQuery;
 begin
   result:=false;
-  adotemp22:=TMyQuery.Create(nil);
+  adotemp22:=TUniQuery.Create(nil);
   adotemp22.Connection:=dm.MyConnection1;
   adotemp22.Close;
   adotemp22.SQL.Clear;

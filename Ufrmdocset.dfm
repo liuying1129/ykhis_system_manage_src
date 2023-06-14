@@ -174,7 +174,7 @@ object frmdocset: Tfrmdocset
     Left = 368
     Top = 248
   end
-  object ADOdoclist: TMyQuery
+  object ADOdoclist: TUniQuery
     AfterOpen = ADOdoclistAfterOpen
     AfterScroll = ADOdoclistAfterScroll
     Left = 440

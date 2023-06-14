@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ImgList, ComCtrls, ToolWin, StdCtrls, ExtCtrls, Buttons,ADODB,StrUtils,
-  DosMove, ActnList, DBCtrls, DB, MemDS, DBAccess, MyAccess;
+  DosMove, ActnList, DBCtrls, DB, MemDS, DBAccess, Uni;
 
 type
   TfrmTempDir = class(TForm)
@@ -84,12 +84,12 @@ end;
 
 procedure TfrmTempDir.UpdatetvWareHouse;
 var
-  adotemp11:TMyQuery;
+  adotemp11:TUniQuery;
   Node: TTreeNode;
   DescriptType:PDescriptType;
 begin
   tvWareHouse.Items.Clear;
-  adotemp11:=TMyQuery.Create(nil);
+  adotemp11:=TUniQuery.Create(nil);
   adotemp11.Connection:=dm.MyConnection1;
 
   adotemp11.Close;
@@ -124,7 +124,7 @@ var
   RecNum:integer;
   SelectID:string;
 begin
-  RecNum:=strtoint(ScalarSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'select count(*) as RecNum from temp_dir LIMIT 1'));
+  RecNum:=strtoint(ScalarSQLCmd(HisConn,'select count(*) as RecNum from temp_dir LIMIT 1'));
 
   if RecNum<>0 then//否则,没有记录SelectID为默认值空('')
   begin
@@ -134,7 +134,7 @@ begin
       exit;
     end;
     SelectID:=PDescriptType(tvWareHouse.Selected.Data)^.unid;
-    InsertPwhid:=ScalarSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'select up_unid from temp_dir where unid='+SelectID);
+    InsertPwhid:=ScalarSQLCmd(HisConn,'select up_unid from temp_dir where unid='+SelectID);
   end;
 
   ClearEdit;
@@ -162,10 +162,10 @@ end;
 
 procedure TfrmTempDir.BitBtn3Click(Sender: TObject);
 var
-  adotemp11:TMyQuery;
+  adotemp11:TUniQuery;
   i_sort_num:integer;
 begin
-  adotemp11:=TMyQuery.Create(nil);
+  adotemp11:=TUniQuery.Create(nil);
   adotemp11.Connection:=dm.MyConnection1;
   adotemp11.Close;
   adotemp11.SQL.Clear;
@@ -211,7 +211,7 @@ begin
     exit;
   end;
   
-  RecNum:=strtoint(ScalarSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'select count(*) as RecNum from temp_dir where up_unid='+PDescriptType(tvWareHouse.Selected.Data)^.unid));
+  RecNum:=strtoint(ScalarSQLCmd(HisConn,'select count(*) as RecNum from temp_dir where up_unid='+PDescriptType(tvWareHouse.Selected.Data)^.unid));
 
   if RecNum<>0 then
   begin
@@ -219,7 +219,7 @@ begin
     exit;
   end;
 
-  RecNum33:=strtoint(ScalarSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'select count(*) as RecNum33 from temp_body where dir_unid='+PDescriptType(tvWareHouse.Selected.Data)^.unid));
+  RecNum33:=strtoint(ScalarSQLCmd(HisConn,'select count(*) as RecNum33 from temp_body where dir_unid='+PDescriptType(tvWareHouse.Selected.Data)^.unid));
 
   if RecNum33<>0 then
   begin
@@ -229,7 +229,7 @@ begin
 
   if (MessageDlg('确定删除当前节点吗？', mtConfirmation, [mbYes, mbNo], 0) <> mrYes) then exit;
 
-  ExecSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'delete from temp_dir where unid='+PDescriptType(tvWareHouse.Selected.Data)^.unid);
+  ExecSQLCmd(HisConn,'delete from temp_dir where unid='+PDescriptType(tvWareHouse.Selected.Data)^.unid);
 
   UpdatetvWareHouse;
 end;
@@ -244,13 +244,13 @@ end;
 procedure TfrmTempDir.tvWareHouseChange(Sender: TObject;
   Node: TTreeNode);
 var
-  adotemp11:TMyQuery;
+  adotemp11:TUniQuery;
   ChildNode:ttreenode;
   DescriptType:PDescriptType;
 begin
   node.DeleteChildren;//清除节点下的所有子节点
 
-  adotemp11:=TMyQuery.Create(nil);
+  adotemp11:=TUniQuery.Create(nil);
   adotemp11.Connection:=dm.MyConnection1;
 
   adotemp11.Close;

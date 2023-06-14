@@ -645,7 +645,7 @@ object frmDrugManage: TfrmDrugManage
     Left = 24
     Top = 2
   end
-  object ADOQuery1: TMyQuery
+  object ADOQuery1: TUniQuery
     AfterOpen = ADOQuery1AfterOpen
     AfterScroll = ADOQuery1AfterScroll
     Left = 248
@@ -656,7 +656,7 @@ object frmDrugManage: TfrmDrugManage
     Left = 256
     Top = 415
   end
-  object MyQuery2: TMyQuery
+  object MyQuery2: TUniQuery
     AfterOpen = MyQuery2AfterOpen
     AfterScroll = MyQuery2AfterScroll
     Left = 224

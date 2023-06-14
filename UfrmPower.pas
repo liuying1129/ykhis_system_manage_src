@@ -7,7 +7,7 @@ uses
   Dialogs, DB, Buttons,
   StrUtils, DBCtrls, ADODB,inifiles, StdCtrls, ExtCtrls, CheckLst,
   Menus, Mask, Controls, Grids, DBGrids, ComCtrls, MemDS, DBAccess,
-  MyAccess;
+  Uni;
 
 type
   TfrmPower = class(TForm)
@@ -25,8 +25,8 @@ type
     ComboBox1: TComboBox;
     CheckListBox2: TCheckListBox;
     CheckListBox1: TCheckListBox;
-    ADOQuery_js: TMyQuery;
-    ADOQuery_zy: TMyQuery;
+    ADOQuery_js: TUniQuery;
+    ADOQuery_zy: TUniQuery;
     Panel2: TPanel;
     LabeledEdit1: TLabeledEdit;
     Edit1: TEdit;
@@ -126,11 +126,11 @@ end;
 
 procedure TfrmPower.MakeCombinChecklistbox;
 var
-  adotemp3:TMyQuery;
+  adotemp3:TUniQuery;
 begin
      CheckListBox1.Items.Clear;
 
-     adotemp3:=TMyQuery.Create(nil);
+     adotemp3:=TUniQuery.Create(nil);
      adotemp3.Connection:=DM.MyConnection1;
      adotemp3.Close;
      adotemp3.SQL.Clear;
@@ -161,7 +161,7 @@ begin
       ss:=CheckListBox1.Items.Strings[i];
       b:=pos('   ',ss);
       sss:=copy(ss,1,b-1);
-      if strtoint(ScalarSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'select count(*) from role_power where role_unid='+ADOQuery_js.fieldbyname('unid').AsString+' and power_unid='+sss))>0 then
+      if strtoint(ScalarSQLCmd(HisConn,'select count(*) from role_power where role_unid='+ADOQuery_js.fieldbyname('unid').AsString+' and power_unid='+sss))>0 then
       begin
         CheckListBox1.Checked[i]:=true;
       end;
@@ -188,10 +188,10 @@ begin
 
   if (Sender as TCheckListBox).Checked[i] then
   begin
-    ExecSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'insert into role_power (role_unid,power_unid) values ('+ADOquery_js.FieldByName('unid').AsString+','+menu_bm+')');
+    ExecSQLCmd(HisConn,'insert into role_power (role_unid,power_unid) values ('+ADOquery_js.FieldByName('unid').AsString+','+menu_bm+')');
   end else
   begin
-    ExecSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'delete from role_power where role_unid='+ADOquery_js.FieldByName('unid').AsString+' and power_unid='+menu_bm);
+    ExecSQLCmd(HisConn,'delete from role_power where role_unid='+ADOquery_js.FieldByName('unid').AsString+' and power_unid='+menu_bm);
   end;
 end;
 
@@ -210,7 +210,7 @@ begin
       ss:=CheckListBox2.Items.Strings[i];
       b:=pos('   ',ss);
       sss:=copy(ss,1,b-1);
-      if strtoint(ScalarSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'select count(*) from worker_role where worker_unid='+ADOquery_zy.fieldbyname('unid').AsString+' and role_unid='+sss))>0 then
+      if strtoint(ScalarSQLCmd(HisConn,'select count(*) from worker_role where worker_unid='+ADOquery_zy.fieldbyname('unid').AsString+' and role_unid='+sss))>0 then
       begin
         CheckListBox2.Checked[i]:=true;
       end;
@@ -219,11 +219,11 @@ end;
 
 procedure TfrmPower.MakeCombinChecklistbox_JS;
 var
-  adotemp3:TMyQuery;
+  adotemp3:TUniQuery;
 begin
      CheckListBox2.Items.Clear;
 
-     adotemp3:=TMyQuery.Create(nil);
+     adotemp3:=TUniQuery.Create(nil);
      adotemp3.Connection:=DM.MyConnection1;
      adotemp3.Close;
      adotemp3.SQL.Clear;
@@ -258,10 +258,10 @@ begin
 
   if (Sender as TCheckListBox).Checked[i] then
   begin
-    ExecSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'insert into worker_role (worker_unid,role_unid) values ('+ADOQuery_zy.FieldByName('unid').AsString+','+js_unid+')');
+    ExecSQLCmd(HisConn,'insert into worker_role (worker_unid,role_unid) values ('+ADOQuery_zy.FieldByName('unid').AsString+','+js_unid+')');
   end else
   begin
-    ExecSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'delete from worker_role where worker_unid='+ADOQuery_zy.FieldByName('unid').AsString+' and role_unid='+js_unid);
+    ExecSQLCmd(HisConn,'delete from worker_role where worker_unid='+ADOQuery_zy.FieldByName('unid').AsString+' and role_unid='+js_unid);
   end;
 end;
 

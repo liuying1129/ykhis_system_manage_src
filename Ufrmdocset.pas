@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ComCtrls, StdCtrls,  ExtCtrls, 
   Grids, DBGrids,  DBCtrls, DB, ADODB,
-  ActnList, DosMove, Buttons, ULYDataToExcel, MemDS, DBAccess, MyAccess,Inifiles;
+  ActnList, DosMove, Buttons, ULYDataToExcel, MemDS, DBAccess, Inifiles,
+  Uni;
 
 type
   Tfrmdocset = class(TForm)
@@ -22,7 +23,7 @@ type
     suiButton2: TSpeedButton;
     suiButton3: TSpeedButton;
     BitBtn1: TBitBtn;
-    ADOdoclist: TMyQuery;
+    ADOdoclist: TUniQuery;
     ComboBox1: TComboBox;
     Label2: TLabel;
     Label3: TLabel;
@@ -108,7 +109,7 @@ end;
 
 procedure Tfrmdocset.suiButton2Click(Sender: TObject);
 Var
-   adotemp11,adotemp12: TMyQuery;
+   adotemp11,adotemp12: TUniQuery;
    sDep_Unid:string;
    Insert_Identity,iDep_Unid:integer;
 Begin
@@ -129,7 +130,7 @@ Begin
           exit;
         end;
 
-        if strtoint(ScalarSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'select count(*) from commcode where typename=''部门'' and unid='+sDep_Unid))<=0 then
+        if strtoint(ScalarSQLCmd(HisConn,'select count(*) from commcode where typename=''部门'' and unid='+sDep_Unid))<=0 then
         begin
           MESSAGEDLG('部门不存在!',mtError,[mbOK],0);
           exit;
@@ -141,7 +142,7 @@ Begin
           exit;
         end;
 
-        adotemp12:=TMyQuery.Create(nil);
+        adotemp12:=TUniQuery.Create(nil);
         adotemp12.Connection:=DM.MyConnection1;
         adotemp12.Close;
         adotemp12.SQL.Clear;
@@ -166,7 +167,7 @@ Begin
 
         Insert_Identity:=ADOdoclist.fieldbyname('Unid').AsInteger;
 
-        adotemp11:=TMyQuery.Create(nil);
+        adotemp11:=TUniQuery.Create(nil);
         adotemp11.Connection:=DM.MyConnection1;
         adotemp11.Close;
         adotemp11.SQL.Clear;

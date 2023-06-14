@@ -55,7 +55,7 @@ end;
 
 procedure TfrmModifyPwd.BitBtn1Click(Sender: TObject);
 begin
-  if strtoint(ScalarSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'select count(*) from worker where code='''+operator_id+''' AND ifnull(password,'''')='''+LabeledEdit1.Text+''' '))<=0 then
+  if strtoint(ScalarSQLCmd(HisConn,'select count(*) from worker where code='''+operator_id+''' AND ifnull(password,'''')='''+LabeledEdit1.Text+''' '))<=0 then
   begin
     messagedlg('原密码不正确！',mtInformation,[mbok],0);
     LabeledEdit1.SetFocus;
@@ -74,7 +74,7 @@ begin
      exit;
   end;
 
-  if ExecSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'update worker set password='''+trim(LabeledEdit2.Text)+''' where code='''+operator_id+''' ') then
+  if ExecSQLCmd(HisConn,'update worker set password='''+trim(LabeledEdit2.Text)+''' where code='''+operator_id+''' ') then
   begin
     messagedlg('密码修改成功！',mtInformation,[mbok],0);
     close;

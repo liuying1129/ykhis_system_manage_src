@@ -147,7 +147,7 @@ object frmLogin: TfrmLogin
       OnExecute = suiButton4Click
     end
   end
-  object ADOQuery1: TMyQuery
+  object ADOQuery1: TUniQuery
     Left = 280
     Top = 56
   end

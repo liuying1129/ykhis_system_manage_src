@@ -5,8 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, ComCtrls, Grids, DBGrids, StdCtrls, DB, ADODB, Buttons,
-  ActnList, UfrmLocateRecord,inifiles, MemDS, DBAccess, MyAccess,
-  ADOLYGetcode,Math, DosMove;
+  ActnList, UfrmLocateRecord,inifiles, MemDS, DBAccess, 
+  ADOLYGetcode,Math, DosMove, Uni;
 
 type
   TfrmDgnsBigTemp = class(TForm)
@@ -29,7 +29,7 @@ type
     Panel4: TPanel;
     LabeledEdit2: TLabeledEdit;
     Splitter2: TSplitter;
-    ADOQuery1: TMyQuery;
+    ADOQuery1: TUniQuery;
     LabeledEdit3: TLabeledEdit;
     LabeledEdit4: TLabeledEdit;
     LabeledEdit5: TLabeledEdit;
@@ -105,12 +105,12 @@ end;
 
 procedure TfrmDgnsBigTemp.UpdatetvWareHouse;
 var
-  adotemp11:TMyQuery;
+  adotemp11:TUniQuery;
   Node: TTreeNode;
   DescriptType:PDescriptType;
 begin
   tvWareHouse.Items.Clear;
-  adotemp11:=TMyQuery.Create(nil);
+  adotemp11:=TUniQuery.Create(nil);
   adotemp11.Connection:=dm.MyConnection1;
 
   adotemp11.Close;
@@ -166,13 +166,13 @@ end;
 
 procedure TfrmDgnsBigTemp.tvWareHouseChange(Sender: TObject; Node: TTreeNode);
 var
-  adotemp11:TMyQuery;
+  adotemp11:TUniQuery;
   ChildNode:ttreenode;
   DescriptType:PDescriptType;
 begin
   node.DeleteChildren;//清除节点下的所有子节点
 
-  adotemp11:=TMyQuery.Create(nil);
+  adotemp11:=TUniQuery.Create(nil);
   adotemp11.Connection:=dm.MyConnection1;
 
   adotemp11.Close;
@@ -287,7 +287,7 @@ end;
 
 procedure TfrmDgnsBigTemp.BitBtn3Click(Sender: TObject);
 var
-  adotemp11:TMyQuery;
+  adotemp11:TUniQuery;
   Insert_Identity:integer;
   sqlstr:string;
   i_group_num,i_drug_days,i_item_unid:integer;//i_ji_num
@@ -307,7 +307,7 @@ begin
 
   if not ADOQuery1.Active then exit;
 
-  adotemp11:=TMyQuery.Create(nil);
+  adotemp11:=TUniQuery.Create(nil);
   adotemp11.Connection:=dm.MyConnection1;
   if ifNewAdd then //新增
   begin
@@ -590,7 +590,7 @@ var
   f1:single;
 begin
   Result:=0;
-  s1:=ScalarSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'select Reserve5 from commcode where TypeName=''给药频次'' AND name='''+drug_freq+''' LIMIT 1');
+  s1:=ScalarSQLCmd(HisConn,'select Reserve5 from commcode where TypeName=''给药频次'' AND name='''+drug_freq+''' LIMIT 1');
   if not trystrtoint(s1,i1) then exit;
   if not trystrtoint(drug_days,i2) then exit;
   if not trystrtofloat(dosage,f1) then exit;
@@ -604,7 +604,7 @@ function TfrmDgnsBigTemp.UnitsConverterMethod(const ADrug_Unid,AUnit_Dosage,AUni
 var
   iiDown,ii1,iiUp:integer;
   s2,s3:string;
-  adotemp12:TMyQuery;
+  adotemp12:TUniQuery;
 begin
   Result:=0;
 		
@@ -620,7 +620,7 @@ begin
   s2 := AUnit_Dosage;
   while AUnit_Fee<>s2 do
   begin
-    adotemp12:=TMyQuery.Create(nil);
+    adotemp12:=TUniQuery.Create(nil);
     adotemp12.Connection:=DM.MyConnection1;
     adotemp12.Close;
     adotemp12.SQL.Clear;
@@ -643,7 +643,7 @@ begin
   s3 := AUnit_Dosage;
   while AUnit_Fee<>s3 do
   begin			
-    adotemp12:=TMyQuery.Create(nil);
+    adotemp12:=TUniQuery.Create(nil);
     adotemp12.Connection:=DM.MyConnection1;
     adotemp12.Close;
     adotemp12.SQL.Clear;
@@ -683,7 +683,7 @@ var
   i1,i2:integer;
 begin
   Result:=0;
-  s1:=ScalarSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'select Reserve5 from commcode where TypeName=''给药频次'' AND name='''+drug_freq+''' LIMIT 1');
+  s1:=ScalarSQLCmd(HisConn,'select Reserve5 from commcode where TypeName=''给药频次'' AND name='''+drug_freq+''' LIMIT 1');
   if not trystrtoint(s1,i1) then exit;
   if not trystrtoint(drug_days,i2) then exit;
   Result:=i1*i2;

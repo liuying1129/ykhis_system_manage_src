@@ -367,7 +367,7 @@ object frmCommCode: TfrmCommCode
     Left = 336
     Top = 16
   end
-  object ADOQuery1: TMyQuery
+  object ADOQuery1: TUniQuery
     AfterOpen = ADOQuery1AfterOpen
     AfterScroll = ADOQuery1AfterScroll
     Left = 544

@@ -5,8 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, Grids, DBGrids, StdCtrls, Buttons, DB, ADODB, DosMove,StrUtils,
-  ULYDataToExcel, ComCtrls, MemDS, DBAccess, MyAccess, UfrmLocateRecord,
-  ADOLYGetcode;
+  ULYDataToExcel, ComCtrls, MemDS, DBAccess, UfrmLocateRecord,
+  ADOLYGetcode, Uni;
 
 type
   TfrmDrugManage = class(TForm)
@@ -22,7 +22,7 @@ type
     BitBtn4: TBitBtn;
     LabeledEdit4: TLabeledEdit;
     LabeledEdit5: TLabeledEdit;
-    ADOQuery1: TMyQuery;
+    ADOQuery1: TUniQuery;
     LabeledEdit14: TLabeledEdit;
     LabeledEdit15: TLabeledEdit;
     LabeledEdit16: TLabeledEdit;
@@ -32,7 +32,7 @@ type
     ComboBox5: TComboBox;
     Label5: TLabel;
     DataSource2: TDataSource;
-    MyQuery2: TMyQuery;
+    MyQuery2: TUniQuery;
     LabeledEdit22: TLabeledEdit;
     LabeledEdit24: TLabeledEdit;
     LabeledEdit25: TLabeledEdit;
@@ -214,13 +214,13 @@ end;
 
 procedure TfrmDrugManage.BitBtn2Click(Sender: TObject);
 var
-  adotemp11:TMyQuery;
+  adotemp11:TUniQuery;
   sqlstr:string;
   Insert_Identity:integer;
   i_drug_days_dft:integer;
   f_min_content,f_dosage_dft:single;
 begin
-  adotemp11:=TMyQuery.Create(nil);
+  adotemp11:=TUniQuery.Create(nil);
   adotemp11.Connection:=DM.MyConnection1;
   if ifNewAdd then //新增
   begin
@@ -421,10 +421,10 @@ begin
     MESSAGEDLG('类型不能为空!',MTINFORMATION,[MBOK],0);
     exit;
   end;
-  iNum:=strtoint(ScalarSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'select count(*) as iNum from drug_manage where Type_Name='''+sTypeName+''' '));
+  iNum:=strtoint(ScalarSQLCmd(HisConn,'select count(*) as iNum from drug_manage where Type_Name='''+sTypeName+''' '));
   if iNum<=0 then
   begin
-    ExecSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'Insert into drug_manage (code,gene_name,Type_Name) values (''初始ID'',''初始Name'','''+sTypeName+''') ');
+    ExecSQLCmd(HisConn,'Insert into drug_manage (code,gene_name,Type_Name) values (''初始ID'',''初始Name'','''+sTypeName+''') ');
 
     LoadGroupName(ComboBox1,'select Type_Name from drug_manage group by Type_Name');//加载ComboBox1
   end;
@@ -436,7 +436,7 @@ end;
 
 procedure TfrmDrugManage.BitBtn7Click(Sender: TObject);
 var
-  adotemp11:TMyQuery;
+  adotemp11:TUniQuery;
   sqlstr:string;
   Insert_Identity:integer;
   iParentSL,iParentSL2:integer;
@@ -474,7 +474,7 @@ begin
   if not ADOQuery1.Active then exit;
   if ADOQuery1.RecordCount=0 then exit;
   
-  adotemp11:=TMyQuery.Create(nil);
+  adotemp11:=TUniQuery.Create(nil);
   adotemp11.Connection:=DM.MyConnection1;
 
   if ifPackNewAdd then //新增

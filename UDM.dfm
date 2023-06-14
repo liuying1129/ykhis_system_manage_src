@@ -5,13 +5,13 @@ object DM: TDM
   Top = 196
   Height = 150
   Width = 215
-  object MyConnection1: TMyConnection
+  object MyConnection1: TUniConnection
     Database = 'ykhis'
     Username = 'root'
-    Password = 'yklissa'
     Server = 'localhost'
     LoginPrompt = False
     Left = 56
     Top = 24
+    EncryptedPassword = '86FF94FF93FF96FF8CFF8CFF9EFF'
   end
 end

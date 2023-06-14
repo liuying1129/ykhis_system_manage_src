@@ -175,11 +175,11 @@ object frmPower: TfrmPower
     DataSet = ADOQuery_zy
     Left = 592
   end
-  object ADOQuery_js: TMyQuery
+  object ADOQuery_js: TUniQuery
     AfterScroll = ADOQuery_jsAfterScroll
     Left = 388
   end
-  object ADOQuery_zy: TMyQuery
+  object ADOQuery_zy: TUniQuery
     AfterScroll = ADOQuery_zyAfterScroll
     Left = 556
   end

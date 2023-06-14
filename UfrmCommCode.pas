@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, Grids, DBGrids, StdCtrls, Buttons, DB, ADODB, DosMove,StrUtils,
-  ULYDataToExcel, ComCtrls, MemDS, DBAccess, MyAccess;
+  ULYDataToExcel, ComCtrls, MemDS, DBAccess, Uni;
 
 type
   TfrmCommCode = class(TForm)
@@ -35,7 +35,7 @@ type
     DateTimePicker2: TDateTimePicker;
     LabeledEdit12: TLabeledEdit;
     LabeledEdit13: TLabeledEdit;
-    ADOQuery1: TMyQuery;
+    ADOQuery1: TUniQuery;
     SpeedButton1: TSpeedButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -146,14 +146,14 @@ end;
 
 procedure TfrmCommCode.BitBtn2Click(Sender: TObject);
 var
-  adotemp11:TMyQuery;
+  adotemp11:TUniQuery;
   sqlstr:string;
   Insert_Identity:integer;
   iReserve5,iReserve6:integer;
   iReserve7,iReserve8:single;
   iReserve9,iReserve10:TDateTime;
 begin
-  adotemp11:=TMyQuery.Create(nil);
+  adotemp11:=TUniQuery.Create(nil);
   adotemp11.Connection:=DM.MyConnection1;
   if ifNewAdd then //新增
   begin
@@ -269,7 +269,7 @@ begin
   //删除该部门的人员
   if ComboBox1.Text='部门' then
   begin
-    ExecSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'delete from worker where dep_unid='+DBGrid1.DataSource.DataSet.fieldbyname('Unid').AsString);
+    ExecSQLCmd(HisConn,'delete from worker where dep_unid='+DBGrid1.DataSource.DataSet.fieldbyname('Unid').AsString);
   end;
   //================
 
@@ -342,10 +342,10 @@ begin
     MESSAGEDLG('类型不能为空!',MTINFORMATION,[MBOK],0);
     exit;
   end;
-  iNum:=strtoint(ScalarSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'select count(*) as iNum from commcode where TypeName='''+sTypeName+''' '));
+  iNum:=strtoint(ScalarSQLCmd(HisConn,'select count(*) as iNum from commcode where TypeName='''+sTypeName+''' '));
   if iNum<=0 then
   begin
-    ExecSQLCmd(g_Server,g_Port,g_Database,g_Username,g_Password,'Insert into commcode (code,name,TypeName) values (''初始ID'',''初始Name'','''+sTypeName+''') ');
+    ExecSQLCmd(HisConn,'Insert into commcode (code,name,TypeName) values (''初始ID'',''初始Name'','''+sTypeName+''') ');
 
     LoadGroupName(ComboBox1,'select TypeName from commcode group by TypeName');//加载ComboBox1
   end;
